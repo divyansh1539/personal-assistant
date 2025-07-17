@@ -18,28 +18,34 @@
     </div>
     <div class="container1">
         <h2> ☠️ Login to Hell ☠️</h2>
-        <form action="/login/" method="POST">
+        {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            <p style="color:red;font-weight:bold;">{{message}}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form action="/" method="POST">
             {% csrf_token %}
 
-            <label for ="username">Username</label>
-            <input type ="text" name ="username" required>
+            <label for="username">Username or Email</label>
+            <input type="text" name="username" required>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" required>
 
-            <label for="password1">Password</label>
-            <input type="password" name="password1" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
 
 
             <button type="submit">Login</button>
         </form>
-    
-       <div class="footer-text">
+
+        <div class="footer-text">
             <p>Don't have an account? <a class="login-link" href="/register">Register</a></p>
 
         </div>
 
     </div>
+    <script src="{% static 'images/script.js' %}"></script>
 
 </body>
 
