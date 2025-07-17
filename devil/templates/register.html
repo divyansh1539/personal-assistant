@@ -19,11 +19,11 @@
     <div class="container1">
         <h2> ☠️ Register to Hell ☠️</h2>
         {% if messages %}
-        <ul style="color: red; font-weight: bold;">
+        <div class="alert alert-danger">
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <p style="color:red;font-weight:bold;">{{message}}</p>
             {% endfor %}
-        </ul>
+        </div>
         {% endif %}
 
         <form action="/register/" method="POST">
@@ -46,7 +46,7 @@
             <p>Already have an account? <a class="login-link" href="/">Login</a></p>
         </div>
     </div>
-
+    <script src ="{% static 'images/script.js' %}"></script>
 </body>
 
 </html>
