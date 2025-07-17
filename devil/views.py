@@ -26,6 +26,6 @@ def register_page(request):
         user.save()
 
         messages.success(request, "✅ Account created successfully.")
-        return redirect("login")  
+        return redirect("/")  
 
     return render(request, "register.html")
