@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
+@login_required
+def login_page(request):
+    return render(request,"login.html")
 
-
+@login_required
 def register_page(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -12,14 +16,18 @@ def register_page(request):
         confirm_password = request.POST.get("confirm_password")
 
         if password != confirm_password:
-            message.error(request,"❌ Passwords do not match.")
-            return render(request,"register.html")
+            messages.error(request, "❌ Passwords do not match.")
+            return render(request, "register.html")
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "❌ Username already exists.")
+            return render(request, "register.html")
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
 
-        message.success(request,"✅ Account created successfully")
-        return redirect("login")
-    
-    return render("login.html")
+        messages.success(request, "✅ Account created successfully.")
+        return redirect("login")  # Make sure you have this path named 'login'
+
+    return render(request, "register.html")
 
