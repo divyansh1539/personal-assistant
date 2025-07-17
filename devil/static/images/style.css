@@ -66,4 +66,20 @@ body {
   .container1 button:hover {
     background-color: #5a0202;
   }
-  
+.footer-text {
+  text-align: center;
+  color: rgb(255, 16, 16);
+  margin-top: 20px;
+}
+
+.footer-text a {
+  color: #ffffff;
+}
+.login-link {
+  text-decoration: none;
+  color: white;
+}
+
+
+
+

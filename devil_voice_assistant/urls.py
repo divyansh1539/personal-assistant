@@ -20,5 +20,6 @@ from devil.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', register_page ,  name = "register_page"),
+    path('register/', register_page ,  name = "register_page"),
+    path('',login_page , name ="login_page"),
 ]

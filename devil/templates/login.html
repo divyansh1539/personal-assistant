@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'images/style.css' %}">
+</head>
+
+<body>
+
+
+    <div class="logo">
+        <img src="static/images/devil_logo.png" alt="logo"
+            style="width: 8%; height: 10%; margin-top: 2%; margin-left: 2%;">
+    </div>
+    <div class="container1">
+        <h2> ☠️ Login to Hell ☠️</h2>
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+
+            <label for="password1">Password</label>
+            <input type="password" name="password1" required>
+
+
+            <button type="submit">Login</button>
+        </form>
+    
+       <div class="footer-text">
+            <p>Don't have an account? <a class="login-link" href="/register">Register</a></p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
