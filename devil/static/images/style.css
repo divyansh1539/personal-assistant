@@ -9,7 +9,7 @@ html , body {
 }
 body {
   margin: 0;
-  background: url("/static/images/ChatGPT Image Jul 17, 2025, 04_01_50 PM.png") no-repeat center center fixed;
+  background: url("/static/images/bg.png") no-repeat center center fixed;
   background-size: cover;
   background-position: center;
   font-family: 'Orbitron', sans-serif;
