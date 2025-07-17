@@ -11,8 +11,8 @@ def register_page(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
-        password = request.POST.get("password")
-        confirm_password = request.POST.get("confirm_password")
+        password = request.POST.get("password1")
+        confirm_password = request.POST.get("password2")
 
         if password != confirm_password:
             messages.error(request, "❌ Passwords do not match.")

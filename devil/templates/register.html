@@ -12,12 +12,20 @@
 <body>
 
 
-<div class="logo">
-    <img src="{% static 'images/devil_logo.png' %}" alt="logo"
-         style="width: 8%; height: 10%; margin-top: 2%; margin-left: 2%;">
-</div>
+    <div class="logo">
+        <img src="{% static 'images/devil_logo.png' %}" alt="logo"
+            style="width: 8%; height: 10%; margin-top: 2%; margin-left: 2%;">
+    </div>
     <div class="container1">
         <h2> ☠️ Register to Hell ☠️</h2>
+        {% if messages %}
+        <ul style="color: red; font-weight: bold;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         <form action="/register/" method="POST">
             {% csrf_token %}
             <label for="username">Username</label>
