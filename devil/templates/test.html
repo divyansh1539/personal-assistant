@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Devil Voice Test</title>
+</head>
+<body style="background: black; color: red; font-size: 30px; text-align: center; padding-top: 100px;">
+
+    <h1 id="devil-welcome">Welcome, Kapil</h1>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const heading = document.getElementById("devil-welcome");
+            if (!heading) return;
+
+            const msg = new SpeechSynthesisUtterance(heading.textContent);
+            msg.pitch = 0.4;
+            msg.rate = 0.9;
+            msg.volume = 1;
+
+            const speakNow = () => {
+                const voices = speechSynthesis.getVoices();
+                msg.voice = voices.find(v =>
+                    v.name.toLowerCase().includes("zira") ||
+                    v.name.toLowerCase().includes("fred") ||
+                    v.name.toLowerCase().includes("daniel")
+                ) || voices[0];
+
+                console.log("Speaking with voice:", msg.voice.name);
+                speechSynthesis.speak(msg);
+            };
+
+            // Handle voice load
+            if (speechSynthesis.getVoices().length === 0) {
+                speechSynthesis.onvoiceschanged = speakNow;
+            } else {
+                speakNow();
+            }
+        });
+    </script>
+</body>
+</html>
