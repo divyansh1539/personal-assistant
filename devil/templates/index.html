@@ -14,10 +14,15 @@
 
     <div class="main-heading">
         {% if request.user.is_authenticated %}
-        <h1>Welcome, {{request.user.username}}</h1>
+        <h1 id="welcome-heading" data-username="{{ request.user.first_name|default:request.user.username }}">
+            Welcome, {{ request.user.username }}
+          </h1>
+        
         {% endif %}
     </div>
     <script src="{% static 'images/script.js' %}"></script>
+
+      
 
 </body>
 
