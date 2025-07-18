@@ -14,6 +14,34 @@ body {
   background-position: center;
   font-family: 'Orbitron', sans-serif;
 }
+.index-page {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+
+  background: radial-gradient(circle at top left, #1a0000, #000000 60%), 
+  linear-gradient(to right, #000000, #2e0000, #5a0000, #8b0000, #300000);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0 10px #FF1A1A;
+
+}
+.main-heading h1 {
+  font-size: 4rem;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
+.logo {
+  z-index: 999;
+}
+
+
 .container1{
    
     width: 32%;
@@ -79,7 +107,5 @@ body {
   text-decoration: none;
   color: white;
 }
-
-
 
 
