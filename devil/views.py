@@ -9,7 +9,7 @@ def index(request):
 
 def login_page(request):
     if request.method =="POST":
-        user_input =request.POST.get("username")   #it can be username or email
+        user_input =request.POST.get("username")   
         password =request.POST.get("password")
         user_obj = User.objects.filter(Q(username =user_input) | Q(email =user_input)).first()
         if user_obj is None:

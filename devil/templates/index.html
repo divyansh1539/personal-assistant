@@ -13,7 +13,9 @@
     </div>
 
     <div class="main-heading">
-        <h1>Welcome to Hell</h1>
+        {% if request.user.is_authenticated %}
+        <h1>Welcome, {{request.user.username}}</h1>
+        {% endif %}
     </div>
 </body>
 
