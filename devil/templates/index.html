@@ -1,13 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main page</title>
     <link rel="stylesheet" href="{% static 'images/style.css' %}">
 </head>
+
 <body class="index-page">
+    <a class="logout-btn" href="/">Logout</a>
+
     <div class="logo" style="position:absolute; top: 20px; left: 20px;">
         <img src="{% static 'images/devil_logo.png' %}" alt="logo" style="width: 80px; height: auto;">
     </div>
@@ -15,14 +19,14 @@
     <div class="main-heading">
         {% if request.user.is_authenticated %}
         <h1 id="welcome-heading" data-username="{{ request.user.first_name|default:request.user.username }}">
+            
             Welcome, {{ request.user.username }}
-          </h1>
-        
+        </h1>
+
         {% endif %}
     </div>
     <script src="{% static 'images/script.js' %}"></script>
 
-      
 
 </body>
 
