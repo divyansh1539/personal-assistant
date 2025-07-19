@@ -29,12 +29,33 @@ body {
   justify-content: center;
   align-items: center;
   text-shadow: 0 0 10px #FF1A1A;
-
 }
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+
+    color: white;
+    padding: 6px;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.logout-btn:hover {
+    transform: scale(1.1);
+    background-color: #610404;
+}
+
+
+
+
 .main-heading h1 {
   font-size: 3rem;
   letter-spacing: 2px;
   z-index: 1;
+  margin-top:-100px;
 }
 
 .logo {

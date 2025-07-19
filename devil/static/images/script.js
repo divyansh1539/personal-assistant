@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const heading = document.getElementById("welcome-heading");
     const userName = heading?.dataset?.username || "stranger";
   
-    const msg = new SpeechSynthesisUtterance("Welcome, " + userName + ". You’ve crossed the line... The devil rides with you now.");
+    const msg = new SpeechSynthesisUtterance("..Welcome, " + userName + "..You’ve crossed the line... The devil rides with you now");
     msg.pitch = 0.4;       
     msg.rate = 0.65;      
     msg.volume = 1.0;      
@@ -24,9 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         voice.name.includes("Alex") ||
         voice.name.includes("Google")
     );
-  
-    // Wait for voices if not yet loaded
-    if (speechSynthesis.getVoices().length === 0) {
+      if (speechSynthesis.getVoices().length === 0) {
       speechSynthesis.addEventListener("voiceschanged", () => {
         speechSynthesis.speak(msg);
       });
@@ -34,5 +32,3 @@ window.addEventListener("DOMContentLoaded", () => {
       speechSynthesis.speak(msg);
     }
   });
-  
-
