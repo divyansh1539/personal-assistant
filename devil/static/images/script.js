@@ -31,4 +31,21 @@ window.addEventListener("DOMContentLoaded", () => {
       speechSynthesis.speak(msg);
     }
   });
-  
+  const logo = document.getElementById('devilLogo');
+    const sound = document.getElementById('devilSound');
+
+    if (logo && sound) {
+        logo.addEventListener('mouseenter', () => {
+            sound.currentTime = 0;
+            sound.play().catch(err => {
+                console.log("Audio play failed:", err);
+            });
+        });
+
+        logo.addEventListener('mouseleave', () => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+    } else {
+        console.log("Logo or Sound element not found.");
+    }

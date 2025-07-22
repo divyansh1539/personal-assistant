@@ -12,9 +12,13 @@
 <body class="index-page">
     <a class="logout-btn" href="/">Logout</a>
 
-    <div class="logo" style="position:absolute; top: 20px; left: 20px;">
+    <div class="logo" id="devilLogo" style="position:absolute; top: 20px; left: 20px;">
         <img src="{% static 'images/devil_logo.png' %}" alt="logo" style="width: 80px; height: auto;">
     </div>
+    <audio id="devilSound" preload="auto">
+        <source src="{% static 'sounds/devil-laugh.mp3' %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <div class="main-heading">
         {% if request.user.is_authenticated %}
@@ -25,6 +29,12 @@
 
         {% endif %}
     </div>
+    <div class="chat-input-area">
+        <input type="text" placeholder="Write your curses...." id="user-input">
+        <button id="killer-send-button">Fire It</button>
+        <img src="static/images/logo1.img.png" alt="">
+    </div>
+      
     <script src="{% static 'images/script.js' %}"></script>
 
 
