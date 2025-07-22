@@ -41,6 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
         voice.name.includes("Google")
 
 
+    );
     
   
     if (speechSynthesis.getVoices().length === 0) {
@@ -70,4 +71,5 @@ window.addEventListener("DOMContentLoaded", () => {
     } else {
         console.log("Logo or Sound element not found.");
     }
+
 
