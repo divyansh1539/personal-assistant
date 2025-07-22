@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devil Voice Assistant</title>
+  <style>
+    body {
+      background-color: #0b0b0b;
+      color: #ff4444;
+      font-family: monospace;
+      padding: 30px;
+    }
+    #chat-wrapper {
+      max-width: 600px;
+      margin: auto;
+    }
+    #chat-log {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    .chat-message {
+      margin: 10px 0;
+    }
+    .user-msg {
+      color: #66ff66;
+    }
+    .bot-msg {
+      color: #ff4444;
+    }
+    #input-area {
+      display: flex;
+      gap: 10px;
+    }
+    #user-input {
+      flex-grow: 1;
+      padding: 10px;
+      background: #222;
+      color: white;
+      border: none;
+      resize: none;
+      overflow: hidden;
+    }
+    #mic-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #ff4444;
+    }
+    #mic-popup {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20, 0, 0, 0.9);
+      color: #ff4444;
+      border: 2px solid #ff4444;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-wrapper">
+    <div id="chat-log"></div>
+    <div id="input-area">
+      <textarea id="user-input" rows="1" placeholder="Hello, Kapil..."></textarea>
+      <button id="mic-btn">🎤</button>
+    </div>
+  </div>
+
+  <div id="mic-popup">🎙️ Speak now...</div>
+
+  <script>
+    const micBtn = document.getElementById("mic-btn");
+    const inputBox = document.getElementById("user-input");
+    const chatLog = document.getElementById("chat-log");
+    const micPopup = document.getElementById("mic-popup");
+
+    const redirectCommands = {
+      "youtube": "https://www.youtube.com",
+      "google": "https://www.google.com",
+      "github": "https://github.com",
+      "stackoverflow": "https://stackoverflow.com"
+    };
+
+    // Voice recognition
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+
+    micBtn.addEventListener("click", () => {
+      micPopup.style.display = "block";
+      recognition.start();
+    });
+
+    recognition.onend = () => {
+      micPopup.style.display = "none";
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      inputBox.value = "";
+      addMessage("user", transcript);
+      getAnswer(transcript, true);  // ✅ trigger as user action
+    };
+
+    // Textarea enter/send
+    inputBox.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        const userText = inputBox.value.trim();
+        if (userText) {
+          addMessage("user", userText);
+          getAnswer(userText, false); // typed input
+          inputBox.value = "";
+          inputBox.style.height = "auto";
+        }
+      }
+    });
+
+    function getAnswer(input, isVoice = false) {
+      const q = input.toLowerCase().trim();
+      let reply = "";
+      let redirectURL = null;
+      let newTab = null;
+
+      for (const keyword in redirectCommands) {
+        if (q.includes("open " + keyword)) {
+          reply = `Opening ${keyword}...`;
+          redirectURL = redirectCommands[keyword];
+          if (isVoice) {
+            newTab = window.open("about:blank"); // open immediately to avoid browser block
+          }
+          break;
+        }
+      }
+
+      if (!reply) {
+        if (q.includes("your name")) {
+          reply = "I am the devil's assistant. Obeying your voice.";
+        } else if (q.includes("time")) {
+          reply = "The dark hour is " + new Date().toLocaleTimeString();
+        } else {
+          reply = "That is unknown to even the shadows.";
+        }
+      }
+
+      addMessage("bot", reply);
+      speak(reply, () => {
+        if (redirectURL && newTab) {
+          newTab.location.href = redirectURL;
+        } else if (redirectURL) {
+          window.open(redirectURL, "_blank");
+        }
+      });
+    }
+
+    function addMessage(sender, text) {
+      const div = document.createElement("div");
+      div.className = `chat-message ${sender}-msg`;
+      div.textContent = text;
+      chatLog.appendChild(div);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function speak(text, callback = null) {
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = "en-US";
+      msg.pitch = 0.3;
+      msg.rate = 0.65;
+      msg.volume = 1;
+
+      const voices = speechSynthesis.getVoices();
+      msg.voice = voices.find(v => v.name.includes("Microsoft David") || v.name.includes("Google")) || voices[0];
+
+      if (callback) msg.onend = callback;
+
+      if (voices.length === 0) {
+        speechSynthesis.addEventListener("voiceschanged", () => speechSynthesis.speak(msg));
+      } else {
+        speechSynthesis.speak(msg);
+      }
+    }
+  </script>
+</body>
+</html>
