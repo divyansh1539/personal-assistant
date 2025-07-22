@@ -10,6 +10,7 @@ setTimeout(function() {
 
 
 window.addEventListener("DOMContentLoaded", () => {
+
   const heading = document.getElementById("welcome-heading");
   const userName = heading?.dataset?.username || "stranger";
   const path = window.location.pathname.toLowerCase();
@@ -21,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
   } else if (path.includes("login") && !userName || userName === "stranger") {
     message = "Stranger, are you ready to reveal your identity?";
   } else {
-    message = `Hello, ${userName}, welcome to my dark, world.`;
+    message = `Hello, ${userName}, welcome to my dark world.`;
   }
 
   const msg = new SpeechSynthesisUtterance(message);
@@ -32,42 +33,43 @@ window.addEventListener("DOMContentLoaded", () => {
 
   msg.voice = speechSynthesis.getVoices().find(
     voice =>
+
         voice.name.includes("Google UK English Male") ||
         voice.name.includes("Microsoft David") ||
-        voice.name.includes("Daniel") ||
-        voice.name.includes("Fred") ||
+        voice.name.includes("Fred") || 
         voice.name.includes("Alex") ||
         voice.name.includes("Google")
-  );
 
-  if (speechSynthesis.getVoices().length === 0) {
-    speechSynthesis.addEventListener("voiceschanged", () => {
-      speechSynthesis.speak(msg);
-    });
-  } else {
-    speechSynthesis.speak(msg);
-  }
-});
 
-// window.addEventListener("DOMContentLoaded", () => {
-//     const heading = document.getElementById("welcome-heading");
-//     const userName = heading?.dataset?.username || "stranger";
+    );
+    
   
-//     const msg = new SpeechSynthesisUtterance("Welcome, " + userName +  ", You have crossed the line, The devil rides with you now");
-//     msg.pitch = 0.3;       
-//     msg.rate = 0.65;      
-//     msg.volume = 2.0;      
-//     msg.lang = "en-US";  
-//     msg.voice = speechSynthesis.getVoices().find(
-//       voice =>    
-//       voice.name.includes("Microsoft David") ||
-//       voice.name.includes("Google")
-// );
-//       if (speechSynthesis.getVoices().length === 0) {
-//       speechSynthesis.addEventListener("voiceschanged", () => {
-//         speechSynthesis.speak(msg);
-//       });
-//     } else {
-//       speechSynthesis.speak(msg);
-//     }
-//   });
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener("voiceschanged", () => {
+        speechSynthesis.speak(msg);
+      });
+    } else {
+      speechSynthesis.speak(msg);
+    }
+  });
+
+  const logo = document.getElementById('devilLogo');
+    const sound = document.getElementById('devilSound');
+
+    if (logo && sound) {
+        logo.addEventListener('mouseenter', () => {
+            sound.currentTime = 0;
+            sound.play().catch(err => {
+                console.log("Audio play failed:", err);
+            });
+        });
+
+        logo.addEventListener('mouseleave', () => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+    } else {
+        console.log("Logo or Sound element not found.");
+    }
+
+
