@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
   } else if (path.includes("login") && !userName || userName === "stranger") {
     message = "Stranger, are you ready to reveal your identity?";
   } else {
-    message = `Hello, ${userName}, welcome to my dark, world.`;
+    message = `Hello, ${userName}, welcome to my dark world.`;
   }
 
   const msg = new SpeechSynthesisUtterance(message);
