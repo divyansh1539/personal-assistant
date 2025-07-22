@@ -12,8 +12,6 @@ setTimeout(function() {
 window.addEventListener("DOMContentLoaded", () => {
   const heading = document.getElementById("welcome-heading");
   const userName = heading?.dataset?.username || "stranger";
-
-  // Detect the page type (via pathname or data attribute)
   const path = window.location.pathname.toLowerCase();
 
   let message = "";
@@ -32,11 +30,14 @@ window.addEventListener("DOMContentLoaded", () => {
   msg.volume = 2.0;
   msg.lang = "en-US";
 
-  // Choose voice
   msg.voice = speechSynthesis.getVoices().find(
     voice =>
-      voice.name.includes("Microsoft David") ||
-      voice.name.includes("Google")
+        voice.name.includes("Google UK English Male") ||
+        voice.name.includes("Microsoft David") ||
+        voice.name.includes("Daniel") ||
+        voice.name.includes("Fred") ||
+        voice.name.includes("Alex") ||
+        voice.name.includes("Google")
   );
 
   if (speechSynthesis.getVoices().length === 0) {
