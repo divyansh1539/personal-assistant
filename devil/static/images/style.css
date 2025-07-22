@@ -150,10 +150,10 @@ body {
 
 .chat-input-area img {
   position: absolute;
-  margin-left: 80%;
-  margin-top: 1%;
+  margin-left: 81%;
+  margin-top: 0%;
   cursor: pointer;
-  height: 35px;
+  height: 48px;
   width: auto;
   padding: 5px;
   transition: 0.3s ease-in-out;
@@ -161,12 +161,10 @@ body {
 }
 
 .chat-input-area img:hover {
-  background-color: rgba(255, 0, 0, 0.1);   
-  border-radius: 50%;                      
-  box-shadow: 0 0 12px #ff0000;            
-  padding: 8px;                            
-  transform: scale(1.1);
-}
+  background-color: rgba(255, 0, 0, 0.15);  
+  padding: auto;
+  border-radius: 50%;
+} 
 
 
 
