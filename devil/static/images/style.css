@@ -30,23 +30,75 @@ body {
   align-items: center;
   text-shadow: 0 0 10px #FF1A1A;
 }
-.logout-btn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
+/* .logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff0000;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  text-decoration: none;
+  text-shadow: 0 0 5px #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
 
-    color: white;
-    padding: 6px;
-    text-decoration: none;
-    border-radius: 7px;
-    font-weight: bold;
-    border: 2px solid white;
+/* .logout-btn:hover {
+  transform: scale(1.1);
+  background-color: #f11414;
+  color: black;
+  text-shadow: none;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+} */
+/* .logout-btn:hover {
+  animation: dangerShake 0.3s ease-in-out;
+}
+
+@keyframes dangerShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+} */ 
+
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  padding: 8px 17px;
+  color: black;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  border: 2px solid #ff1a1a;
+  background: linear-gradient(to right, #8b0000, #ff0000);
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #8b0000;
+  transition: all 0.3s ease-in-out;
+  font-size: 16px;
+  z-index: 1000;
 }
 
 .logout-btn:hover {
-    transform: scale(1.1);
-    background-color: #610404;
+  animation: dangerShake 0.3s ease-in-out;
+  background-color: #ff1a1a;
+  box-shadow: 0 0 10px #ff0000, 0 0 15px #ff0000;
+  transform: scale(1.1);
+  cursor: pointer;
 }
+
+@keyframes dangerShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+} 
+
 
 
 
