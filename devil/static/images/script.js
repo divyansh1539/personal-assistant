@@ -151,7 +151,7 @@ function speak(text) {
   msg.volume = 2;
 
   const preferredVoices = speechSynthesis.getVoices().filter(
-    v => v.lang === "en-US" && (v.name.includes("Alex") || v.name.includes("Google") || v.name.includes("Microsoft"))
+    v => v.lang === "en-US" && (v.name.includes("samantha") || v.name.includes("Google") || v.name.includes("Microsoft"))
   );
 
   msg.voice = preferredVoices[0] || speechSynthesis.getVoices().find(v => v.lang.startsWith("en")) || speechSynthesis.getVoices()[0];
@@ -237,6 +237,9 @@ if (q.includes("open youtube")) {
 } else if (q.includes("open twitter")) {
   speakAlways("Flying over to Twitter...");
   setTimeout(() => window.open("https://twitter.com", "_blank"), 1000);
+}  else if (q.includes("open telegram")) {
+    speakAlways("Summoning  to open Telegram....");
+    setTimeout(() => window.open("https://web.telegram.org/k/", "_blank"), 1000);
 
 } else if (q.includes("your name") || q.includes("who are you")) {
   speakOnly("I'm the devil's assistant, a voice from the abyss.");
