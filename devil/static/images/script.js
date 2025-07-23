@@ -79,10 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("killer-send-button");
   const micBtn = document.querySelector(".chat-input-area img");
   const welcomeHeading = document.getElementById("welcome-heading");
+
+  
+
   inputBox.addEventListener("input", () => {
   inputBox.style.height = "auto";
   inputBox.style.height = inputBox.scrollHeight + "px";
 
+  // Hide scrollbar if empty
   if (!inputBox.value.trim()) {
     inputBox.style.overflowY = "hidden";
   } else {
@@ -206,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
     createBubble(msg, "bot");
     speak(msg);
   };
-
   if (q.includes("open youtube")) {
     speakAlways("Opening YouTube...");
     setTimeout(() => window.open("https://www.youtube.com", "_blank"), 1000);
@@ -240,7 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
     speakOnly(`The dark hour is ${time}`);
 
   } else if (q.includes("weather")) {
-
     const weatherMsg = "Weather feature coming soon...";
     speakOnly(weatherMsg);
     console.log("Trigger weather UI/API here");
@@ -254,7 +256,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     const joke = jokes[Math.floor(Math.random() * jokes.length)];
     speakOnly(joke);
-
+  } else if (q.replace(/[^a-z]/gi, "").includes("heydevil")) {
+    const heading = document.getElementById("welcome-heading");
+    const userName = heading?.dataset?.username?.trim() || "stranger";
+    speakOnly(`Hey, ${userName}, darkness awaits your command.`);
   } else {
     speakOnly("That is unknown to even the shadows.");
   }
