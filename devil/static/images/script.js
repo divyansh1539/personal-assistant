@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("killer-send-button");
   const micBtn = document.querySelector(".chat-input-area img");
   const welcomeHeading = document.getElementById("welcome-heading");
+
   
 
   inputBox.addEventListener("input", () => {
@@ -255,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     const joke = jokes[Math.floor(Math.random() * jokes.length)];
     speakOnly(joke);
-  } else if (q.startsWith("hey devil")) {
+  } else if (q.replace(/[^a-z]/gi, "").includes("heydevil")) {
     const heading = document.getElementById("welcome-heading");
     const userName = heading?.dataset?.username?.trim() || "stranger";
     speakOnly(`Hey, ${userName}, darkness awaits your command.`);
