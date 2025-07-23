@@ -281,25 +281,3 @@ body {
   text-decoration: none;
   color: white;
 }
-
-/* Scrollbar Styling */
-/* #chat-area::-webkit-scrollbar {
-  width: 10px;
-  position:absolute;
-  right: 2px;
-}
-
-#chat-area::-webkit-scrollbar-track {
-  background: #1a0000;
-  border-radius: 10px;
-}
-
-#chat-area::-webkit-scrollbar-thumb {
-  background: rgb(122, 3, 3);
-  border-radius: 10px;
-  box-shadow: 0 0 5px red;
-}
-
-#chat-area::-webkit-scrollbar-thumb:hover {
-  background: #ff1a1a;
-} */
