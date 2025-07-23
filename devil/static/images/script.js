@@ -73,7 +73,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const inputBox = document.getElementById("user-input");
   const sendBtn = document.getElementById("killer-send-button");
