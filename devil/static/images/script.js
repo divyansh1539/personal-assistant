@@ -85,7 +85,6 @@ inputBox.addEventListener("input", () => {
 inputBox.style.height = "auto";
 inputBox.style.height = inputBox.scrollHeight + "px";
 
-// Hide scrollbar if empty
 if (!inputBox.value.trim()) {
   inputBox.style.overflowY = "hidden";
 } else {
@@ -147,19 +146,24 @@ function removeWelcome() {
 function speak(text) {
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = "en-US";
-  msg.pitch = 0.3;
+  msg.pitch = 0.1;
   msg.rate = 0.65;
-  msg.volume = 1;
-  const voices = speechSynthesis.getVoices();
-  msg.voice = voices.find(v => v.name.includes("Google") || v.name.includes("Microsoft")) || voices[0];
+  msg.volume = 2;
+
+  const preferredVoices = speechSynthesis.getVoices().filter(
+    v => v.lang === "en-US" && (v.name.includes("Alex") || v.name.includes("Google") || v.name.includes("Microsoft"))
+  );
+
+  msg.voice = preferredVoices[0] || speechSynthesis.getVoices().find(v => v.lang.startsWith("en")) || speechSynthesis.getVoices()[0];
+
   if (speechSynthesis.speaking) speechSynthesis.cancel();
-  if (voices.length === 0) {
+
+  if (speechSynthesis.getVoices().length === 0) {
     speechSynthesis.addEventListener("voiceschanged", () => speechSynthesis.speak(msg));
   } else {
     speechSynthesis.speak(msg);
   }
 }
-
 function createBubble(text, sender) {
   const bubble = document.createElement("div");
   bubble.className = `bubble ${sender}`;
@@ -238,7 +242,7 @@ if (q.includes("open youtube")) {
   speakOnly("I'm the devil's assistant, a voice from the abyss.");
 
 } else if (q.includes("time") || q.includes("live time")) {
-  const time = new Date().toLocaleTimeString();
+  const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
   speakOnly(`The dark hour is ${time}`);
 
 } else if (q.includes("weather")) {
