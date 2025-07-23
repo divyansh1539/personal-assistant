@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("killer-send-button");
   const micBtn = document.querySelector(".chat-input-area img");
   const welcomeHeading = document.getElementById("welcome-heading");
+  
 
   inputBox.addEventListener("input", () => {
   inputBox.style.height = "auto";
@@ -208,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
     createBubble(msg, "bot");
     speak(msg);
   };
-
   if (q.includes("open youtube")) {
     speakAlways("Opening YouTube...");
     setTimeout(() => window.open("https://www.youtube.com", "_blank"), 1000);
@@ -255,7 +255,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     const joke = jokes[Math.floor(Math.random() * jokes.length)];
     speakOnly(joke);
-
+  } else if (q.startsWith("hey devil")) {
+    const heading = document.getElementById("welcome-heading");
+    const userName = heading?.dataset?.username?.trim() || "stranger";
+    speakOnly(`Hey, ${userName}, darkness awaits your command.`);
   } else {
     speakOnly("That is unknown to even the shadows.");
   }
