@@ -1,52 +1,45 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'images/style.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'images/style.css' %}" />
 </head>
 
 <body>
+  <div class="logo">
+    <img src="{% static 'images/devil_logo.png' %}" alt="logo" />
+  </div>
 
+  <div class="container1">
+    <h2>☠️ Login to Hell ☠️</h2>
 
-    <div class="logo">
-        <img src="static/images/devil_logo.png" alt="logo"
-            style="width: 8%; height: 10%; margin-top: 2%; margin-left: 2%;">
+    {% if messages %}
+    <div class="alert alert-danger">
+      {% for message in messages %}
+      <p style="color:red;font-weight:bold;">{{ message }}</p>
+      {% endfor %}
     </div>
-    <div class="container1">
-        <h2> ☠️ Login to Hell ☠️</h2>
-        {% if messages %}
-        <div class="alert alert-danger">
-            {% for message in messages %}
-            <p style="color:red;font-weight:bold;">{{message}}</p>
-            {% endfor %}
-        </div>
-        {% endif %}
-        <form action="/" method="POST">
-            {% csrf_token %}
+    {% endif %}
 
-            <label for="username">Username or Email</label>
-            <input type="text" name="username" required>
+    <form action="/" method="POST">
+      {% csrf_token %}
+      <label for="username">Username or Email</label>
+      <input type="text" name="username" required />
 
+      <label for="password">Password</label>
+      <input type="password" name="password" required />
 
-            <label for="password">Password</label>
-            <input type="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
 
-
-            <button type="submit">Login</button>
-        </form>
-
-        <div class="footer-text">
-            <p>Don't have an account? <a class="login-link" href="/register">Register</a></p>
-
-        </div>
-
+    <div class="footer-text">
+      <p>Don't have an account? <a class="login-link" href="/register">Register</a></p>
     </div>
-    <script src="{% static 'images/script.js' %}"></script>
+  </div>
 
+  <script src="{% static 'images/script.js' %}"></script>
 </body>
-
 </html>

@@ -237,9 +237,9 @@ if (q.includes("open youtube")) {
 } else if (q.includes("open twitter")) {
   speakAlways("Flying over to Twitter...");
   setTimeout(() => window.open("https://twitter.com", "_blank"), 1000);
-}  else if (q.includes("open telegram")) {
-    speakAlways("Summoning  to open Telegram....");
-    setTimeout(() => window.open("https://web.telegram.org/k/", "_blank"), 1000);
+} else if (q.includes("open telegram")) {
+  speakAlways("Summoning  to open Telegram....");
+  setTimeout(() => window.open("https://web.telegram.org/k/", "_blank"), 1000);
 
 } else if (q.includes("your name") || q.includes("who are you")) {
   speakOnly("I'm the devil's assistant, a voice from the abyss.");
