@@ -48,5 +48,5 @@ def register_page(request):
     return render(request, "register.html")
 
 def logout_page(request):
-    logout(request,user)
+    logout(request,User)
     return redirect("/")
