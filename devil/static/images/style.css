@@ -272,9 +272,12 @@ h1{
   }
 
   .chat-input-area img {
-    display: none;
+    display: inline;
+    width: 47px;
+    margin-left: 78%;
+    height: auto;
+    position: absolute;
   }
-  
 
   .main-heading h1 {
     font-size: 2rem;
@@ -304,7 +307,10 @@ h1{
   }
 }
 
+<<<<<<< HEAD
 /* === Mobile view: container centered === */
+=======
+>>>>>>> c220f31937aba05d167812546980f4e80ac39bf4
 @media screen and (max-width: 1023px) {
   .index-page {
     justify-content: center;
@@ -315,4 +321,8 @@ h1{
     width: 90%;
     margin: 20px auto;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c220f31937aba05d167812546980f4e80ac39bf4
