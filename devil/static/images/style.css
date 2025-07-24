@@ -20,9 +20,8 @@ body {
   background: url("/static/images/bg.png") no-repeat center center fixed;
   background-size: cover;
   background-position: center;
+  font-family: 'Orbitron', sans-serif;
 }
-
-/* 💀 MAIN PAGE SECTION */
 .index-page {
   min-height: 100dvh;
   display: flex;
@@ -118,45 +117,63 @@ body {
   transform: scale(1.05);
 }
 
-/* 🩸 FORM CONTAINER */
-.container1 {
-  width: 100%;
-  max-width: 420px;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 2rem 1.5rem;
-  margin: 120px auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #FF1A1A;
+.logo {
+  z-index: 999;
 }
-label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: bold;
-}
-input {
-  width: 100%;
-  padding: 0.7rem;
-  margin-top: 0.5rem;
-  border-radius: 5px;
-  background-color: #111;
-  color: white;
-  border: 1px solid #FF1A1A;
-}
-button[type="submit"] {
-  width: 100%;
-  background-color: #FF1A1A;
-  color: white;
-  padding: 0.75rem;
-  margin-top: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-button[type="submit"]:hover {
-  background-color: #8b0000;
-}
+
+
+.container1{
+   
+    width: 32%;
+    margin-top: 2%;
+    margin-left: 60%;
+    background: linear-gradient(145deg, rgba(255, 0, 0, 0.15), rgba(0, 0, 0, 0.15));
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  
+  .container1 h2 {
+    text-align: center;
+    color: #ef2e2e;
+    margin-bottom: 20px;
+    font-weight:1400;
+  }
+  
+  .container1 label {
+    display: block;
+    color: whitesmoke;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .container1 input[type="text"],
+  .container1 input[type="email"],
+  .container1 input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #3f0463;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  .container1 button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #c40000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .container1 button:hover {
+    background-color: #5a0202;
+  }
 .footer-text {
   text-align: center;
   margin-top: 1rem;
@@ -164,59 +181,4 @@ button[type="submit"]:hover {
 .login-link {
   color: #FF1A1A;
   text-decoration: underline;
-}
-
-/* ⚠️ ALERTS */
-.alert {
-  background-color: transparent;
-  padding: 0.5rem;
-}
-
-/* 📱 RESPONSIVE FIXES */
-@media (max-width: 768px) {
-  .index-page {
-    padding: 2rem 1rem;
-    text-shadow: 0 0 6px #FF1A1A;
-  }
-
-  .logo img {
-    max-width: 80vw;
-  }
-
-  .container1 {
-    max-width: 90%;
-    padding: 1.5rem 1rem;
-  }
-
-  .chat-input-area {
-    padding: 0 1rem;
-  }
-
-  .buttons-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .fire-button, .mic-button {
-    width: 100%;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  input, button, textarea {
-    font-size: 0.9rem;
-  }
-
-  .container1 {
-    padding: 1.2rem 0.75rem;
-  }
-
-  .main-heading h1 {
-    font-size: 1.5rem;
-  }
-
-  .logo img {
-    max-width: 70vw;
-  }
 }
