@@ -167,7 +167,7 @@ h1{
 
 .chat-input-area button:hover {
   background: linear-gradient(135deg, #ff1a00, #ffbb00);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 150, 0, 0.6);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 25px rgba(255, 150, 0, 0.6);
   transform: scale(1.05);
 }
 
