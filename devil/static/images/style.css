@@ -290,7 +290,6 @@ body {
   margin-left: 2%;
 }
 
-/* 🔥 Responsive Fix */
 @media (max-width: 1024px) {
   .container1 {
     width: 90%;
