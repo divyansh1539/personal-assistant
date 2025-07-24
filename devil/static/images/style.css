@@ -281,23 +281,3 @@ color: #ffffff;
 text-decoration: none;
 color: white;
 }
-@media (max-width: 600px) {
-  .container1 {
-    padding: 20px;
-    width: 90%;
-    margin: 5% auto;
-  }
-
-  .container1 h2 {
-    font-size: 20px;
-  }
-
-  .container1 input,
-  .container1 button {
-    font-size: 14px;
-  }
-
-  .logo img {
-    width: 80px;
-  }
-}
