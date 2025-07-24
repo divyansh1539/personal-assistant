@@ -274,7 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // ✅ HELP command shows only 10 websites visually — no speech
     if (match(q, ["help", "what can you do", "commands", "show commands"])) {
       const exampleSites = Object.keys(websiteCommands).slice(0, 10).map(site => `• Open ${site}`).join("\n");
       const helpMessage = `
@@ -297,7 +296,6 @@ ${exampleSites}
       return;
     }
 
-    // Other commands continue normally
     if (match(q, ["hi", "hello", "hey"])) {
       speakOnly("Greetings, mortal. Are you ready for the unknown?");
     } else if (match(q, ["how are you"])) {
