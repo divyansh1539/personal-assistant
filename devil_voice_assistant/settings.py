@@ -23,9 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n^y&-2i$n!523n8y0e7@s=9pz#+=w13m4b#h@5)icoq@*!nt5u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'devil_voice_assistant.urls'
@@ -68,6 +67,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'devil_voice_assistant.wsgi.application'
+import os
+
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 
 # Database
@@ -114,11 +116,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-import os
-STATIC_URL = 'static/'
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR,'static')
-]
+STATIC_URL = '/static/'
+
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / "devil" / "static"]
+else:
+    STATICFILES_DIRS = []
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
