@@ -173,6 +173,7 @@ h1{
 
 .chat-input-area img {
   cursor: pointer;
+
   height: 48px;
   width: auto;
   padding: 5px;
@@ -245,6 +246,7 @@ h1{
 .footer-text a {
   color: #ffffff;
 }
+
 .login-link {
   text-decoration: none;
   color: white;
@@ -274,6 +276,7 @@ h1{
     margin-left: 78%;
     height: auto;
     position: absolute;
+    
   }
 
   .main-heading h1 {
@@ -303,7 +306,6 @@ h1{
     width: 32%;
   }
 }
-
 @media screen and (max-width: 1023px) {
   .index-page {
     justify-content: center;
