@@ -131,8 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   function removeWelcome() {
-    if (welcomeHeading) welcomeHeading.style.display = "none";
+    if (typeof welcomeHeading !== "undefined") welcomeHeading.style.display = "none";
   }
+
 
   function speak(text) {
     const msg = new SpeechSynthesisUtterance(text);
