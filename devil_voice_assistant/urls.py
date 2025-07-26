@@ -24,4 +24,5 @@ urlpatterns = [
     path('',login_page , name ="login_page"),
     path('logout/',logout_page, name ="logout_page"),
     path('index',index,name ="index"),
+    path("gemini-api/", chat_with_gpt, name="gemini_api"),
 ]
