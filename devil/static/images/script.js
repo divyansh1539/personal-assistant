@@ -1,76 +1,123 @@
-setTimeout(function() {
-  const alertbox =document.querySelector(".alert");
+setTimeout(function () {
+  const alertbox = document.querySelector(".alert");
   if (alertbox) {
-      alertbox.style.display = 'none';
+    alertbox.style.display = 'none';
 
   }
-},2000);
+}, 2000);
 
 
 
 
 window.addEventListener("DOMContentLoaded", () => {
+  const heading = document.getElementById("welcome-heading");
+  const userName = heading?.dataset?.username || "stranger";
+  const path = window.location.pathname.toLowerCase();
+  const sound = document.getElementById('devilSound');
 
-const heading = document.getElementById("welcome-heading");
-const userName = heading?.dataset?.username || "stranger";
-const path = window.location.pathname.toLowerCase();
-
-let message = "";
-
-if (path.includes("register")) {
-  message = "Welcome, stranger.";
-} else if (path.includes("login") && !userName || userName === "stranger") {
-  message = "Stranger, are you ready to reveal your identity?";
-} else {
-  message = `Hello, ${userName}, welcome to my dark world.`;
-}
-
-const msg = new SpeechSynthesisUtterance(message);
-msg.pitch = 0.1;
-msg.rate = 0.65;
-msg.volume = 2.0;
-msg.lang = "en-US";
-
-msg.voice = speechSynthesis.getVoices().find(
-  voice =>
-
-      voice.name.includes("Google UK English Male") ||
-      voice.name.includes("Microsoft David") ||
-      voice.name.includes("Fred") || 
-      voice.name.includes("Alex") ||
-      voice.name.includes("Google")
+  let message = "";
 
 
-  );
-  
+  speechSynthesis.cancel();
 
-  if (speechSynthesis.getVoices().length === 0) {
-    speechSynthesis.addEventListener("voiceschanged", () => {
-      speechSynthesis.speak(msg);
-    });
+  // ✅ Clear session flag on logout
+  if (path.includes("logout")) {
+    sessionStorage.removeItem("hasVisited");
+  }
+
+  // ✅ REGISTER PAGE
+  if (path.includes("register")) {
+    message = "Welcome, stranger.";
+    speakNow(message);
+
+  // ✅ LOGIN PAGE
+  } else if ((path.includes("login") && !userName) || userName === "stranger") {
+    message = "Stranger, are you ready to reveal your identity?";
+    speakNow(message);
+
+  // ✅ MAIN PAGE
   } else {
-    speechSynthesis.speak(msg);
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
+    if (hasVisited) {
+      // Refresh case → skip MP3
+      message = `Hello, ${userName}, welcome to my dark world.`;
+      speakNow(message);
+    } else {
+      // First time visit → play MP3 then speak
+      sessionStorage.setItem("hasVisited", "true");
+
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play().then(() => {
+          sound.addEventListener("ended", () => {
+            message = `Hello, ${userName}, welcome to my dark world.`;
+            speakNow(message);
+          });
+        }).catch(err => {
+          console.log("MP3 failed to play:", err);
+          setTimeout(() => {
+            message = `Hello, ${userName}, welcome to my dark world.`;
+            speakNow(message);
+          }, 2000);
+        });
+      } else {
+        setTimeout(() => {
+          message = `Hello, ${userName}, welcome to my dark world.`;
+          speakNow(message);
+        }, 2000);
+      }
+    }
+  }
+
+
+  function speakNow(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.pitch = 0.1;
+    msg.rate = 0.65;
+    msg.volume = 1.0;
+    msg.lang = "en-US";
+
+    const setVoice = () => {
+      msg.voice = speechSynthesis.getVoices().find(
+        voice =>
+          voice.name.includes("Google UK English Male") ||
+          voice.name.includes("Microsoft David") ||
+          voice.name.includes("Fred") ||
+          voice.name.includes("Alex") ||
+          voice.name.includes("Google")
+      );
+      speechSynthesis.speak(msg);
+    };
+
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener("voiceschanged", setVoice);
+    } else {
+      setVoice();
+    }
+  }
+
+  // ✅ Logout button clears the session flag (even without refresh)
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      sessionStorage.removeItem("hasVisited");
+    });
+  }
+
+
+  const loginBtn = document.getElementById("loginBtn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      sessionStorage.removeItem("hasVisited");
+      // Delay to let form submit or redirect
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 300);
+    });
   }
 });
 
-const logo = document.getElementById('devilLogo');
-  const sound = document.getElementById('devilSound');
-
-  if (logo && sound) {
-      logo.addEventListener('mouseenter', () => {
-          sound.currentTime = 0;
-          sound.play().catch(err => {
-              console.log("Audio play failed:", err);
-          });
-      });
-
-      logo.addEventListener('mouseleave', () => {
-          sound.pause();
-          sound.currentTime = 0;
-      });
-  } else {
-      console.log("Logo or Sound element not found.");
-  }
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -131,9 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   function removeWelcome() {
-    if (typeof welcomeHeading !== "undefined") welcomeHeading.style.display = "none";
+    if (welcomeHeading) welcomeHeading.style.display = "none";
   }
-
 
   function speak(text) {
     const msg = new SpeechSynthesisUtterance(text);
@@ -384,6 +430,6 @@ ${exampleSites}
 
   recognition.onend = () => micPopup.style.display = "none";
 });
- 
+
 
 
