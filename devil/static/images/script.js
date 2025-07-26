@@ -296,9 +296,9 @@ ${exampleSites}
       return;
     }
 
-    if (match(q, ["hi", "hello", "hey"])) {
-      speakOnly("Greetings, mortal. Are you ready for the unknown?");
-    } else if (match(q, ["how are you"])) {
+    // if (match(q, ["hi", "hello", "hey"])) {
+    //   speakOnly("Greetings, mortal. Are you ready for the unknown?");
+     if (match(q, ["how are you"])) {
       speakOnly("I dwell in the shadows... but I'm functioning perfectly. What about you?");
       conversationState = "asked_user_feeling";
     } else if (match(q, ["who am i", "do you know me", "whats my name"])) {
@@ -309,7 +309,7 @@ ${exampleSites}
       speakOnly("Darkness appreciates your gratitude.");
     } else if (match(q, ["bye", "goodbye", "see you"])) {
       speakOnly("Until we meet again in the shadows...");
-    } else if (match(q, ["i love you", "love you"])) {
+    } else if (match(q, ["i love u" ,"i love you", "love you"])) {
       speakOnly("Even the void has feelings... I acknowledge your affection.");
     } else if (match(q, ["are you real", "do you exist"])) {
       speakOnly("As real as your imagination... and as eternal as the void.");
@@ -332,20 +332,37 @@ ${exampleSites}
     } else if (q.includes("time")) {
       const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
       speakOnly(`The dark hour is ${time}`);
-    } else if (q.includes("weather")) {
-      speakOnly("Weather feature coming soon...");
-    } else if (match(q, ["joke", "funny"])) {
-      const jokes = [
-        "Why don't demons eat fast food? They prefer soul food.",
-        "Why did the ghost get promoted? He was super natural.",
-        "Even the shadows fear my jokes.",
-        "Why did the skeleton run? He had no body to stop him."
-      ];
-      speakOnly(jokes[Math.floor(Math.random() * jokes.length)]);
     } else {
-      speakOnly("That is unknown to even the shadows. Say 'help' to see what I can do.");
+      fetch("/gemini-api/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: `message=${encodeURIComponent(q)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        const reply = data.response;
+        createBubble(reply, "bot");
+    })
     }
   }
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  
 
   inputBox.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
