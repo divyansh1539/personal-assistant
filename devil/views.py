@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.db.models import Q
+from django.http import JsonResponse
+from .utils.gpt import get_gemini_response
+from django.views.decorators.csrf import csrf_exempt
+
 
 def index(request):
     return render(request,"index.html")
@@ -50,3 +54,13 @@ def register_page(request):
 def logout_page(request):
     logout(request,User)
     return redirect("/")
+@csrf_exempt
+
+def chat_with_gpt(request):
+    if request.method == "POST":
+        user_message = request.POST.get("message")
+        if not user_message:
+            return JsonResponse({"error": "No message provided"}, status=400)
+        
+        reply = get_gemini_response(user_message)
+        return JsonResponse({"response": reply})
