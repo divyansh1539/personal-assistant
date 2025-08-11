@@ -2,9 +2,9 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()   # .env file load karega
+load_dotenv()  
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")   # ✅ yahi hona chahiye
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")   
 
 def get_gemini_response(message):
     url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
