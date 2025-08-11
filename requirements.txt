@@ -1,5 +1,9 @@
 Django>=5.2
 gunicorn
 whitenoise
+<<<<<<< HEAD
+=======
+requests
+>>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
 python-dotenv
 
