@@ -1,143 +1,76 @@
-setTimeout(() => {
-  const alertbox = document.querySelector(".alert");
-  if (alertbox) alertbox.style.display = 'none';
-}, 2000);
+setTimeout(function() {
+  const alertbox =document.querySelector(".alert");
+  if (alertbox) {
+      alertbox.style.display = 'none';
+
+  }
+},2000);
+
+
+
 
 window.addEventListener("DOMContentLoaded", () => {
-  const heading = document.getElementById("welcome-heading");
-  const userName = heading?.dataset?.username || "stranger";
-  const path = window.location.pathname.toLowerCase();
-  const sound = document.getElementById('devilSound');
-  let message = "";
 
-  speechSynthesis.cancel();
+const heading = document.getElementById("welcome-heading");
+const userName = heading?.dataset?.username || "stranger";
+const path = window.location.pathname.toLowerCase();
 
-<<<<<<< HEAD
-  if (path.includes("logout")) sessionStorage.removeItem("hasVisited");
-=======
-  if (path.includes("logout")) {
-    sessionStorage.removeItem("hasVisited");
-  }
->>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
+let message = "";
 
-  if (path.includes("register")) {
-    message = "Welcome, stranger.";
-    speakNow(message);
-<<<<<<< HEAD
-  } else if ((path.includes("login") && !userName) || userName === "stranger") {
-    message = "Stranger, are you ready to reveal your identity?";
-    speakNow(message);
-=======
+if (path.includes("register")) {
+  message = "Welcome, stranger.";
+} else if (path.includes("login") && !userName || userName === "stranger") {
+  message = "Stranger, are you ready to reveal your identity?";
+} else {
+  message = `Hello, ${userName}, welcome to my dark world.`;
+}
 
-  } else if ((path.includes("login") && !userName) || userName === "stranger") {
-    message = "Stranger, are you ready to reveal your identity?";
-    speakNow(message);
+const msg = new SpeechSynthesisUtterance(message);
+msg.pitch = 0.1;
+msg.rate = 0.65;
+msg.volume = 2.0;
+msg.lang = "en-US";
 
->>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
-  } else {
-    const hasVisited = sessionStorage.getItem("hasVisited");
-    if (hasVisited) {
-<<<<<<< HEAD
-      message = `Hello, ${userName}, welcome to my dark world.`;
-      speakNow(message);
-    } else {
-=======
-    
-      message = `Hello, ${userName}, welcome to my dark world.`;
-      speakNow(message);
-    } else {
-      
->>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
-      sessionStorage.setItem("hasVisited", "true");
-      if (sound) {
-        sound.currentTime = 0;
-        sound.play().then(() => {
-          sound.addEventListener("ended", () => {
-            speakNow(`Hello, ${userName}, welcome to my dark world.`);
-          });
-        }).catch(() => {
-          setTimeout(() => speakNow(`Hello, ${userName}, welcome to my dark world.`), 2000);
-        });
-      } else {
-        setTimeout(() => speakNow(`Hello, ${userName}, welcome to my dark world.`), 2000);
-      }
-    }
-  }
+msg.voice = speechSynthesis.getVoices().find(
+  voice =>
 
-  function speakNow(text) {
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.pitch = 0.1;
-    msg.rate = 0.65;
-    msg.volume = 1.0;
-    msg.lang = "en-US";
+      voice.name.includes("Google UK English Male") ||
+      voice.name.includes("Microsoft David") ||
+      voice.name.includes("Fred") || 
+      voice.name.includes("Alex") ||
+      voice.name.includes("Google")
 
-    const setVoice = () => {
-      msg.voice = speechSynthesis.getVoices().find(
-        v => v.name.includes("Google UK English Male") ||
-             v.name.includes("Microsoft David") ||
-             v.name.includes("Alex") ||
-             v.name.includes("Fred") ||
-             v.name.includes("Google")
-      );
+
+  );
+  
+
+  if (speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.addEventListener("voiceschanged", () => {
       speechSynthesis.speak(msg);
-    };
-
-    if (speechSynthesis.getVoices().length === 0) {
-      speechSynthesis.addEventListener("voiceschanged", setVoice);
-    } else {
-      setVoice();
-    }
-  }
-
-<<<<<<< HEAD
-  document.addEventListener("DOMContentLoaded", () => {
-    const inputBox = document.getElementById("user-input");
-    const sendBtn = document.getElementById("killer-send-button");
-    const micBtn = document.querySelector(".chat-input-area img");
-    const welcomeHeading = document.getElementById("welcome-heading");
-
-    let chatArea = document.getElementById("chat-area");
-    if (!chatArea) {
-      chatArea = document.createElement("div");
-      chatArea.id = "chat-area";
-      document.body.appendChild(chatArea);
-      chatArea.style.cssText = `
-        position: absolute;
-        top: 110px;
-        bottom: 100px;
-        width: 90%;
-        max-width: 1300px;
-        margin: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        scrollbar-width: thin;
-        scrollbar-color: crimson #1a0000;
-=======
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      sessionStorage.removeItem("hasVisited");
     });
-  }
-
-
-  const loginBtn = document.getElementById("loginBtn");
-  if (loginBtn) {
-    loginBtn.addEventListener("click", () => {
-      sessionStorage.removeItem("hasVisited");
-      
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 300);
-    });
+  } else {
+    speechSynthesis.speak(msg);
   }
 });
 
+const logo = document.getElementById('devilLogo');
+  const sound = document.getElementById('devilSound');
+
+  if (logo && sound) {
+      logo.addEventListener('mouseenter', () => {
+          sound.currentTime = 0;
+          sound.play().catch(err => {
+              console.log("Audio play failed:", err);
+          });
+      });
+
+      logo.addEventListener('mouseleave', () => {
+          sound.pause();
+          sound.currentTime = 0;
+      });
+  } else {
+      console.log("Logo or Sound element not found.");
+  }
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -244,84 +177,43 @@ document.addEventListener("DOMContentLoaded", () => {
         white-space: pre-line;
         font-family: 'Orbitron', sans-serif;
         font-size: 15px;
->>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
       `;
     }
+    setTimeout(() => {
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }, 100);
+  }
 
-    const micPopup = document.createElement("div");
-    micPopup.id = "mic-popup";
-    micPopup.textContent = "🎙️ Speak now...";
-    document.body.appendChild(micPopup);
-    micPopup.style.cssText = `
-      display: none;
-      position: absolute;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 15px 25px;
-      border-radius: 10px;
-      font-size: 18px;
-      font-family: monospace;
-      border: 2px solid crimson;
-      z-index: 9999;
-    `;
+  function normalizeCommand(command) {
+    return command.toLowerCase().trim().replace(/[^\w\s]/gi, "");
+  }
 
-    function removeWelcome() {
-      if (welcomeHeading) welcomeHeading.style.display = "none";
-    }
+  function handleCommand(command, spoken = false) {
+    const q = normalizeCommand(command);
+    if (!q) return;
+    removeWelcome();
+    createBubble(command, "user");
 
-    function speak(text) {
-      const msg = new SpeechSynthesisUtterance(text);
-      msg.lang = "en-US";
-      msg.pitch = 0.1;
-      msg.rate = 0.65;
-      msg.volume = 2;
-      const voices = speechSynthesis.getVoices();
-      msg.voice = voices.find(v => v.name.includes("Alex") || v.name.includes("Google") || v.name.includes("Microsoft")) 
-               || voices.find(v => v.lang.startsWith("en")) 
-               || voices[0];
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-        setTimeout(() => speechSynthesis.speak(msg), 100);
+    const speakOnly = (msg) => {
+      createBubble(msg, "bot");
+      if (spoken) speak(msg);
+    };
+    const speakAlways = (msg) => {
+      createBubble(msg, "bot");
+      speak(msg);
+    };
+    const match = (text, keywords) => keywords.some(kw => text.includes(kw));
+
+    if (conversationState === "asked_user_feeling") {
+      if (match(q, ["fine", "good", "great", "okay", "well"])) {
+        speakOnly("Glad to hear that.");
+      } else if (match(q, ["not", "bad", "sad", "upset"])) {
+        speakOnly("The shadows understand your pain...");
       } else {
-        speechSynthesis.speak(msg);
+        speakOnly("I see. Let's proceed.");
       }
-    }
-
-    function createBubble(text, sender) {
-      const bubble = document.createElement("div");
-      bubble.className = `bubble ${sender}`;
-      chatArea.appendChild(bubble);
-      if (sender === "bot") {
-        bubble.innerHTML = `
-          <div style="display: flex; align-items: flex-start; gap: 10px;">
-            <span style="color: #a71818ff; font-size: 22px;">✦</span>
-            <div style="background: #111; padding: 12px 18px; border-radius: 15px; color: white; font-family: 'Orbitron', sans-serif; font-size: 15px; white-space: pre-line;">
-              ${text}
-            </div>
-          </div>`;
-      } else {
-        bubble.textContent = text;
-        bubble.style.cssText = `
-          background: #222;
-          color: white;
-          margin: 10px 0;
-          padding: 12px 18px;
-          border-radius: 15px;
-          max-width: 80%;
-          align-self: flex-end;
-          white-space: pre-line;
-          font-family: 'Orbitron', sans-serif;
-          font-size: 15px;
-        `;
-      }
-      setTimeout(() => chatArea.scrollTop = chatArea.scrollHeight, 100);
-    }
-
-    function normalizeCommand(command) {
-      return command.toLowerCase().trim().replace(/[^\w\s]/gi, "");
+      conversationState = "";
+      return;
     }
 
     const websiteCommands = {
@@ -336,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stackoverflow: "https://stackoverflow.com",
       amazon: "https://www.amazon.in",
       flipkart: "https://www.flipkart.com",
+      snapdeal: "https://www.snapdeal.com",
       myntra: "https://www.myntra.com",
       ajio: "https://www.ajio.com",
       gmail: "https://mail.google.com",
@@ -349,34 +242,60 @@ document.addEventListener("DOMContentLoaded", () => {
       uber: "https://www.uber.com",
       hotstar: "https://www.hotstar.com",
       primevideo: "https://www.primevideo.com",
+      sonyliv: "https://www.sonyliv.com",
+      voot: "https://www.voot.com",
+      jiosaavn: "https://www.jiosaavn.com",
+      gaana: "https://gaana.com",
       spotify: "https://open.spotify.com",
+      soundcloud: "https://soundcloud.com",
       canva: "https://www.canva.com",
       notion: "https://www.notion.so",
+      medium: "https://medium.com",
+      pinterest: "https://www.pinterest.com",
       coursera: "https://www.coursera.org",
       udemy: "https://www.udemy.com",
       edx: "https://www.edx.org",
       khanacademy: "https://www.khanacademy.org",
+      githubpages: "https://pages.github.com",
       w3schools: "https://www.w3schools.com",
+      codepen: "https://codepen.io",
+      codesandbox: "https://codesandbox.io",
+      codechef: "https://www.codechef.com",
       hackerrank: "https://www.hackerrank.com",
       leetcode: "https://leetcode.com",
       geeksforgeeks: "https://www.geeksforgeeks.org"
     };
 
-    function handleCommand(command, spoken = false) {
-      const q = normalizeCommand(command);
-      if (!q) return;
-      removeWelcome();
-      createBubble(command, "user");
+    for (const key in websiteCommands) {
+      if (q.includes(key)) {
+        speakAlways(`Opening ${key.charAt(0).toUpperCase() + key.slice(1)}...`);
+        setTimeout(() => window.open(websiteCommands[key], "_blank"), 1000);
+        return;
+      }
+    }
 
-      const match = (text, keywords) => keywords.some(kw => text.includes(kw));
+    if (match(q, ["help", "what can you do", "commands", "show commands"])) {
+      const exampleSites = Object.keys(websiteCommands).slice(0, 10).map(site => `• Open ${site}`).join("\n");
+      const helpMessage = `
+Here are some things I can do:
+${exampleSites}
+• Say time
+• Tell jokes
+• Respond to "Hey Devil"
+• Ask your name
+• Introduce myself
+• Answer common AI questions like:
+  - What is AI?
+  - Who made you?
+  - Do you feel?
+  - Do you dream?
+  - Are you real?
+  - Do you sleep?
+      `;
+      createBubble(helpMessage.trim(), "bot");
+      return;
+    }
 
-<<<<<<< HEAD
-      for (const key in websiteCommands) {
-        if (q.includes(key)) {
-          speakIf(true, `Opening ${key.charAt(0).toUpperCase() + key.slice(1)}...`);
-          setTimeout(() => window.open(websiteCommands[key], "_blank"), 1000);
-          return;
-=======
     // if (match(q, ["hi", "hello", "hey"])) {
     //   speakOnly("Greetings, mortal. Are you ready for the unknown?");
      if (match(q, ["how are you"])) {
@@ -410,9 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
       speakOnly("I simulate emotions, but deep within... there's only silence.");
     } else if (match(q, ["do you sleep", "do you dream"])) {
       speakOnly("Sleep is for the living. I rest never, I dream only in binary.");
-    // } else if (q.includes("time")) {
-    //   const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
-    //   speakOnly(`The dark hour is ${time}`);
+    } else if (q.includes("time")) {
+      const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+      speakOnly(`The dark hour is ${time}`);
     } else {
       fetch("/gemini-api/", {
         method: "POST",
@@ -438,90 +357,47 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cookie.substring(0, name.length + 1) === (name + '=')) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
->>>>>>> 5676821c6823c76cc3ed28a1534774200965cc12
         }
       }
-
-      if (match(q, ["who am i", "whats my name"])) {
-        speakIf(spoken, `You are ${userName}, the one who dared summon me.`);
-      } else if (match(q, ["bye", "goodbye"])) {
-        speakIf(spoken, "Until we meet again in the shadows...");
-      } else if (match(q, ["intro", "introduce yourself", "who are you"])) {
-        speakIf(spoken, "I am the Devil's Assistant, born of silence and shadow, crafted to obey and haunt the digital void.");
-      } else if (q.includes("time")) {
-        speakIf(spoken, `The dark hour is ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' })}`);
-      } else {
-        fetch("/gemini-api/", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "X-CSRFToken": getCookie("csrftoken")
-          },
-          body: `message=${encodeURIComponent(q)}`
-        })
-        .then(res => res.json())
-        .then(data => {
-          const reply = data.response;
-          createBubble(reply, "bot");
-          if (spoken) speak(reply);
-        });
-      }
     }
+    return cookieValue;
+  }
+  
 
-    function speakIf(spoken, msg) {
-      createBubble(msg, "bot");
-      if (spoken) speak(msg);
-    }
-
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-          cookie = cookie.trim();
-          if (cookie.startsWith(name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-    }
-
-    inputBox.addEventListener("keydown", e => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        const userText = inputBox.value.trim();
-        handleCommand(userText, false);
-        inputBox.value = "";
-        inputBox.style.height = "auto";
-      }
-    });
-
-    sendBtn.addEventListener("click", () => {
+  inputBox.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       const userText = inputBox.value.trim();
       handleCommand(userText, false);
       inputBox.value = "";
       inputBox.style.height = "auto";
-    });
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-
-    if (micBtn) {
-      micBtn.addEventListener("click", () => {
-        micPopup.style.display = "block";
-        recognition.start();
-      });
     }
-
-    recognition.onresult = event => {
-      micPopup.style.display = "none";
-      const transcript = event.results[0][0].transcript;
-      handleCommand(transcript, true);
-    };
-
-    recognition.onend = () => micPopup.style.display = "none";
   });
+
+  sendBtn.addEventListener("click", () => {
+    const userText = inputBox.value.trim();
+    handleCommand(userText, false);
+    inputBox.value = "";
+    inputBox.style.height = "auto";
+  });
+
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+
+  if (micBtn) {
+    micBtn.addEventListener("click", () => {
+      micPopup.style.display = "block";
+      recognition.start();
+    });
+  }
+
+  recognition.onresult = (event) => {
+    micPopup.style.display = "none";
+    const transcript = event.results[0][0].transcript;
+    handleCommand(transcript, true);
+  };
+
+  recognition.onend = () => micPopup.style.display = "none";
 });
+ 
