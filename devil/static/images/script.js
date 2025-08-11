@@ -20,31 +20,27 @@ window.addEventListener("DOMContentLoaded", () => {
 
   speechSynthesis.cancel();
 
-  // ✅ Clear session flag on logout
   if (path.includes("logout")) {
     sessionStorage.removeItem("hasVisited");
   }
 
-  // ✅ REGISTER PAGE
   if (path.includes("register")) {
     message = "Welcome, stranger.";
     speakNow(message);
 
-  // ✅ LOGIN PAGE
   } else if ((path.includes("login") && !userName) || userName === "stranger") {
     message = "Stranger, are you ready to reveal your identity?";
     speakNow(message);
 
-  // ✅ MAIN PAGE
   } else {
     const hasVisited = sessionStorage.getItem("hasVisited");
 
     if (hasVisited) {
-      // Refresh case → skip MP3
+    
       message = `Hello, ${userName}, welcome to my dark world.`;
       speakNow(message);
     } else {
-      // First time visit → play MP3 then speak
+      
       sessionStorage.setItem("hasVisited", "true");
 
       if (sound) {
@@ -97,7 +93,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ Logout button clears the session flag (even without refresh)
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -110,7 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (loginBtn) {
     loginBtn.addEventListener("click", () => {
       sessionStorage.removeItem("hasVisited");
-      // Delay to let form submit or redirect
+      
       setTimeout(() => {
         window.location.href = "/";
       }, 300);
@@ -376,9 +371,9 @@ ${exampleSites}
       speakOnly("I simulate emotions, but deep within... there's only silence.");
     } else if (match(q, ["do you sleep", "do you dream"])) {
       speakOnly("Sleep is for the living. I rest never, I dream only in binary.");
-    } else if (q.includes("time")) {
-      const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
-      speakOnly(`The dark hour is ${time}`);
+    // } else if (q.includes("time")) {
+    //   const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+    //   speakOnly(`The dark hour is ${time}`);
     } else {
       fetch("/gemini-api/", {
         method: "POST",
