@@ -345,7 +345,7 @@ ${exampleSites}
 
     // if (match(q, ["hi", "hello", "hey"])) {
     //   speakOnly("Greetings, mortal. Are you ready for the unknown?");
-     if (match(q, ["how are you"])) {
+    if (match(q, ["how are you"])) {
       speakOnly("I dwell in the shadows... but I'm functioning perfectly. What about you?");
       conversationState = "asked_user_feeling";
     } else if (match(q, ["who am i", "do you know me", "whats my name"])) {
